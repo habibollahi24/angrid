@@ -1,0 +1,75 @@
+<div class="p-4" id="user-table">
+  <dx-button
+    text="Add User"
+    type="default"
+    stylingMode="contained"
+    (onClick)="onAdd()"
+    class="mb-2 rounded-lg!"
+  />
+
+  <dx-data-grid
+    [dataSource]="users()"
+    [showBorders]="false"
+    keyExpr="id"
+    class="shadow-xl"
+    style="
+      border: 2px solid rgb(231, 231, 231);
+      border-radius: 10px;
+      overflow: hidden;
+    "
+    [columnHidingEnabled]="true"
+    [columnAutoWidth]="true"
+  >
+    <dxo-search-panel
+      [visible]="true"
+      [highlightCaseSensitive]="true"
+    ></dxo-search-panel>
+    <dxi-column
+      dataField="profilePhoto"
+      [width]="100"
+      [allowFiltering]="false"
+      [allowSorting]="false"
+      cellTemplate="cellTemplate"
+    ></dxi-column>
+
+    <dxi-column dataField="firstName" style="text-align: center"></dxi-column>
+    <dxi-column dataField="lastName"></dxi-column>
+    <dxi-column dataField="age"></dxi-column>
+    <dxi-column dataField="education"></dxi-column>
+    <dxi-column dataField="nationalId"></dxi-column>
+    <dxi-column
+      dataField="birthDate"
+      caption="Birth Date"
+      dataType="date"
+    ></dxi-column>
+    <dxi-column type="buttons" [buttons]="actionButtons"> </dxi-column>
+    <div *dxTemplate="let data of 'cellTemplate'">
+      <img
+        [src]="data.data.profilePhoto"
+        alt="Picture of {{ data.data.FirstName }} {{ data.data.LastName }}"
+        style="border-radius: 5px; object-fit: cover; margin: 0 auto"
+      />
+    </div>
+  </dx-data-grid>
+
+  <!-- custom modal with tailwind -->
+  <div
+    *ngIf="showPopup()"
+    class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+  >
+    <div class="bg-white w-[95%] max-w-xl rounded-lg shadow-lg p-6 relative">
+      <button
+        class="absolute top-2 right-2 text-gray-500 hover:text-black"
+        (click)="onCancel()"
+      >
+        ✕
+      </button>
+
+      <app-user-form
+        (cancel)="onCancel()"
+        [editData]="selectedUser()"
+        (save)="onSave($event)"
+      />
+    </div>
+  </div>
+</div>
