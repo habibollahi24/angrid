@@ -21,7 +21,7 @@ interface Product {
   imports: [CommonModule, DxDataGridModule, FormsModule],
   template: `
     <div class="" id="show-table">
-      <div class="flex gap-4 mb-4">
+      <div class="flex gap-4 mb-4 flex-wrap">
         <!-- سرچ سریع -->
         <div>
           <label class="block mb-1">سرچ سریع</label>
@@ -55,10 +55,16 @@ interface Product {
 
       <dx-data-grid
         [dataSource]="products()"
-        [showBorders]="true"
         [columnAutoWidth]="true"
+        class="shadow-xl"
+        style="
+            border: 2px solid rgb(231, 231, 231);
+            border-radius: 10px;
+            overflow: hidden;
+        "
+        [columnHidingEnabled]="true"
         [height]=""
-        [showBorders]="true"
+        [showBorders]="false"
         [scrolling]="{ mode: 'virtual' }"
         [paging]="{ enabled: false }"
       >
