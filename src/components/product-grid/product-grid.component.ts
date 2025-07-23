@@ -13,6 +13,7 @@ interface Product {
   brand: string;
   category: string;
   thumbnail: string;
+  shippingInformation: string;
 }
 
 @Component({
@@ -56,19 +57,31 @@ interface Product {
         [dataSource]="products()"
         [showBorders]="true"
         [columnAutoWidth]="true"
-        [paging]="{ pageSize: 10 }"
-        [pager]="{ showPageSizeSelector: true, allowedPageSizes: [10, 20, 50] }"
+        [height]=""
+        [showBorders]="true"
+        [scrolling]="{ mode: 'virtual' }"
+        [paging]="{ enabled: false }"
       >
         <dxo-sorting mode="multiple"></dxo-sorting>
         <dxi-column dataField="id" caption="ID" [width]="60"></dxi-column>
-        <dxi-column dataField="title" caption="Title"></dxi-column>
+        <dxi-column
+          dataField="title"
+          caption="Title"
+          [width]="250"
+        ></dxi-column>
         <dxi-column
           dataField="price"
           caption="Price"
           [width]="100"
         ></dxi-column>
-        <dxi-column dataField="brand" caption="Brand"></dxi-column>
-        <dxi-column dataField="category" caption="Category"></dxi-column>
+        <dxi-column dataField="shippingInformation" caption="Shipp Now">
+        </dxi-column>
+
+        <dxi-column
+          dataField="category"
+          caption="Category"
+          [width]="250"
+        ></dxi-column>
       </dx-data-grid>
     </div>
   `,
