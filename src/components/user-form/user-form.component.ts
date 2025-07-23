@@ -3,12 +3,13 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../service/user.service';
+
+import { t, direction, toggleLang } from '../../utils/formLang';
 
 // import {
 //   DxFormModule,
@@ -24,7 +25,6 @@ import { DxButtonModule } from 'devextreme-angular/ui/button';
 import { DxTextBoxModule } from 'devextreme-angular/ui/text-box';
 import { DxDateBoxModule } from 'devextreme-angular/ui/date-box';
 import { DxNumberBoxModule } from 'devextreme-angular/ui/number-box';
-import { LANG, LangType } from '../../config/lang';
 
 @Component({
   selector: 'app-user-form',
@@ -42,13 +42,9 @@ import { LANG, LangType } from '../../config/lang';
       (ngSubmit)="submit()"
       #form="ngForm"
       class="dx-form"
-      [attr.dir]="direction"
+      [attr.dir]="dir()"
     >
-      <button
-        type="button"
-        (click)="toggleLang()"
-        class="mb-4 border p-2 rounded"
-      >
+      <button type="button" (click)="toggle()" class="mb-4 border p-2 rounded">
         Change Direction
       </button>
 
@@ -97,9 +93,9 @@ import { LANG, LangType } from '../../config/lang';
           [isRequired]="true"
           editorType="dxTextBox"
           [editorOptions]="{
-            placeholder: LANG[lang].labels.firstName,
+            placeholder: t('firstName') ,
           }"
-          ><dxo-label [text]="LANG[lang].labels.firstName"></dxo-label>
+          ><dxo-label [text]="t('firstName')"></dxo-label>
           <dxi-validation-rule
             type="required"
             message="is required"
@@ -111,9 +107,9 @@ import { LANG, LangType } from '../../config/lang';
           dataField="lastName"
           [isRequired]="true"
           editorType="dxTextBox"
-          [editorOptions]="{ placeholder: LANG[lang].labels.lastName }"
+          [editorOptions]="{ placeholder: t('lastName') }"
         >
-          <dxo-label [text]="LANG[lang].labels.lastName"></dxo-label>
+          <dxo-label [text]="t('lastName')"></dxo-label>
           <dxi-validation-rule
             type="required"
             message="is required"
@@ -125,9 +121,9 @@ import { LANG, LangType } from '../../config/lang';
           dataField="age"
           [isRequired]="true"
           editorType="dxNumberBox"
-          [editorOptions]="{ placeholder: LANG[lang].labels.age }"
+          [editorOptions]="{ placeholder: t('age') }"
         >
-          <dxo-label [text]="LANG[lang].labels.age"></dxo-label>
+          <dxo-label [text]="t('age')"></dxo-label>
 
           <dxi-validation-rule
             type="required"
@@ -140,9 +136,9 @@ import { LANG, LangType } from '../../config/lang';
           dataField="education"
           [isRequired]="true"
           editorType="dxTextBox"
-          [editorOptions]="{ placeholder: LANG[lang].labels.education }"
+          [editorOptions]="{ placeholder: t('education') }"
         >
-          <dxo-label [text]="LANG[lang].labels.education"></dxo-label>
+          <dxo-label [text]="t('education')"></dxo-label>
           <dxi-validation-rule
             type="required"
             message="is required"
@@ -161,7 +157,7 @@ import { LANG, LangType } from '../../config/lang';
             showClearButton: true
           }"
         >
-          <dxo-label [text]="LANG[lang].labels.birthDate"></dxo-label>
+          <dxo-label [text]="t('birthDate')"></dxo-label>
         </dxi-item>
 
         <!-- National ID -->
@@ -169,9 +165,9 @@ import { LANG, LangType } from '../../config/lang';
           dataField="nationalId"
           [isRequired]="true"
           editorType="dxTextBox"
-          [editorOptions]="{ placeholder: LANG[lang].labels.nationalId }"
+          [editorOptions]="{ placeholder: t('nationalId') }"
         >
-          <dxo-label [text]="LANG[lang].labels.nationalId"></dxo-label>
+          <dxo-label [text]="t('nationalId')"></dxo-label>
           <dxi-validation-rule
             type="required"
             message="is required"
@@ -180,13 +176,13 @@ import { LANG, LangType } from '../../config/lang';
       </dx-form>
       <div class="flex justify-end gap-2 mt-4">
         <dx-button
-          [text]="LANG[lang].labels.cancel"
+          [text]="t('cancel')"
           type="normal"
           stylingMode="outlined"
           (onClick)="cancel.emit()"
         ></dx-button>
         <dx-button
-          [text]="LANG[lang].labels.save"
+          [text]="t('save')"
           type="default"
           stylingMode="contained"
           [useSubmitBehavior]="true"
@@ -197,16 +193,10 @@ import { LANG, LangType } from '../../config/lang';
   styleUrls: ['./user-form.component.css'],
 })
 export class UserFormComponent {
-  LANG = LANG;
-  lang: LangType = 'en';
-
-  get direction() {
-    return this.LANG[this.lang].direction;
-  }
-
-  toggleLang() {
-    this.lang = this.lang === 'en' ? 'fa' : 'en';
-  }
+  //hook
+  t = t;
+  dir = direction;
+  toggle = toggleLang;
 
   @ViewChild('devForm', { static: false }) devForm!: DxFormComponent;
   @Input() editData: User | null = null;

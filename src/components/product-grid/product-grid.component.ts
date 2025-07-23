@@ -20,7 +20,7 @@ interface Product {
   selector: 'app-product-grid',
   imports: [CommonModule, DxDataGridModule, FormsModule],
   template: `
-    <div class="p-4" id="show-table">
+    <div class="" id="show-table">
       <div class="flex gap-4 mb-4">
         <!-- سرچ سریع -->
         <div>
