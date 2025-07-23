@@ -1,11 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import {
-  DxDataGridModule,
-  DxButtonModule,
-  DxPopupModule,
-  DxTemplateModule,
-} from 'devextreme-angular';
+// import {
+//   DxDataGridModule,
+//   DxButtonModule,
+//   DxPopupModule,
+//   DxTemplateModule,
+// } from 'devextreme-angular';
+import { DxButtonModule } from 'devextreme-angular/ui/button';
+import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
+import { DxPopupModule } from 'devextreme-angular/ui/popup';
+import { DxTemplateModule } from 'devextreme-angular/core';
+
 import { User, UserService } from '../../service/user.service';
 import { UserFormComponent } from '../user-form/user-form.component';
 

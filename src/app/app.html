@@ -1,3 +1,12 @@
-<div class="container mx-auto max-w-4xl"><app-user-grid></app-user-grid></div>
+<div class="container mx-auto max-w-4xl py-6">
+  <nav class="flex gap-x-4">
+    <a routerLink="/">home</a>
+    <a routerLink="/users">Users</a>
+    <a routerLink="/products">products</a>
+  </nav>
+</div>
 
-<router-outlet />
+<app-global-loading></app-global-loading>
+<div class="container mx-auto max-w-4xl"><router-outlet /></div>
+
+<!-- <app-user-grid></app-user-grid> -->

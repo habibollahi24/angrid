@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
-#user-table td {
+#show-table td {
   text-align: center !important;
   vertical-align: middle !important;
 }
-#user-table tr {
+#show-table tr {
   height: 50px !important;
 }
 

@@ -10,15 +10,20 @@ import {
 import { FormsModule } from '@angular/forms';
 import { User } from '../../service/user.service';
 
-import {
-  DxFormModule,
-  DxButtonModule,
-  DxTextBoxModule,
-  DxDateBoxModule,
-  DxNumberBoxModule,
-  DxFormComponent,
-  DxHtmlEditorComponent,
-} from 'devextreme-angular';
+// import {
+//   DxFormModule,
+//   DxButtonModule,
+//   DxTextBoxModule,
+//   DxDateBoxModule,
+//   DxNumberBoxModule,
+//   DxFormComponent,
+// } from 'devextreme-angular';
+
+import { DxFormModule, DxFormComponent } from 'devextreme-angular/ui/form';
+import { DxButtonModule } from 'devextreme-angular/ui/button';
+import { DxTextBoxModule } from 'devextreme-angular/ui/text-box';
+import { DxDateBoxModule } from 'devextreme-angular/ui/date-box';
+import { DxNumberBoxModule } from 'devextreme-angular/ui/number-box';
 
 @Component({
   selector: 'app-user-form',
@@ -135,10 +140,6 @@ import {
             showClearButton: true
           }"
         >
-          <!-- <dxi-validation-rule
-            type="required"
-            message="Birth date is required"
-          ></dxi-validation-rule> -->
         </dxi-item>
 
         <!-- National ID -->
@@ -182,7 +183,7 @@ export class UserFormComponent {
     profilePhoto: '',
     firstName: '',
     lastName: '',
-    age: 0,
+    age: 10,
     education: '',
     nationalId: '',
     birthDate: '',
