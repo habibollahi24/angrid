@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+body,
+* {
+  font-family: "Vazirmatn", sans-serif;
+}
+
 #show-table td {
   text-align: center !important;
   vertical-align: middle !important;

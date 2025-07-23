@@ -24,6 +24,7 @@ import { DxButtonModule } from 'devextreme-angular/ui/button';
 import { DxTextBoxModule } from 'devextreme-angular/ui/text-box';
 import { DxDateBoxModule } from 'devextreme-angular/ui/date-box';
 import { DxNumberBoxModule } from 'devextreme-angular/ui/number-box';
+import { LANG, LangType } from '../../config/lang';
 
 @Component({
   selector: 'app-user-form',
@@ -37,8 +38,20 @@ import { DxNumberBoxModule } from 'devextreme-angular/ui/number-box';
     DxNumberBoxModule,
   ],
   template: `
-    <form (ngSubmit)="submit()" #form="ngForm" class="dx-form">
-      <!-- Upload -->
+    <form
+      (ngSubmit)="submit()"
+      #form="ngForm"
+      class="dx-form"
+      [attr.dir]="direction"
+    >
+      <button
+        type="button"
+        (click)="toggleLang()"
+        class="mb-4 border p-2 rounded"
+      >
+        Change Direction
+      </button>
+
       <div class="flex mb-2 items-center gap-x-3">
         <label
           for="File"
@@ -83,11 +96,13 @@ import { DxNumberBoxModule } from 'devextreme-angular/ui/number-box';
           dataField="firstName"
           [isRequired]="true"
           editorType="dxTextBox"
-          [editorOptions]="{ placeholder: 'First Name' }"
-        >
+          [editorOptions]="{
+            placeholder: LANG[lang].labels.firstName,
+          }"
+          ><dxo-label [text]="LANG[lang].labels.firstName"></dxo-label>
           <dxi-validation-rule
             type="required"
-            message="First name is required"
+            message="is required"
           ></dxi-validation-rule>
         </dxi-item>
 
@@ -96,10 +111,12 @@ import { DxNumberBoxModule } from 'devextreme-angular/ui/number-box';
           dataField="lastName"
           [isRequired]="true"
           editorType="dxTextBox"
-          [editorOptions]="{ placeholder: 'Last Name' }"
-          ><dxi-validation-rule
+          [editorOptions]="{ placeholder: LANG[lang].labels.lastName }"
+        >
+          <dxo-label [text]="LANG[lang].labels.lastName"></dxo-label>
+          <dxi-validation-rule
             type="required"
-            message="Last name is required"
+            message="is required"
           ></dxi-validation-rule>
         </dxi-item>
 
@@ -108,10 +125,13 @@ import { DxNumberBoxModule } from 'devextreme-angular/ui/number-box';
           dataField="age"
           [isRequired]="true"
           editorType="dxNumberBox"
-          [editorOptions]="{ placeholder: 'Age' }"
-          ><dxi-validation-rule
+          [editorOptions]="{ placeholder: LANG[lang].labels.age }"
+        >
+          <dxo-label [text]="LANG[lang].labels.age"></dxo-label>
+
+          <dxi-validation-rule
             type="required"
-            message="age is required"
+            message="is required"
           ></dxi-validation-rule>
         </dxi-item>
 
@@ -120,11 +140,12 @@ import { DxNumberBoxModule } from 'devextreme-angular/ui/number-box';
           dataField="education"
           [isRequired]="true"
           editorType="dxTextBox"
-          [editorOptions]="{ placeholder: 'Education' }"
+          [editorOptions]="{ placeholder: LANG[lang].labels.education }"
         >
+          <dxo-label [text]="LANG[lang].labels.education"></dxo-label>
           <dxi-validation-rule
             type="required"
-            message="education is required"
+            message="is required"
           ></dxi-validation-rule>
         </dxi-item>
 
@@ -140,6 +161,7 @@ import { DxNumberBoxModule } from 'devextreme-angular/ui/number-box';
             showClearButton: true
           }"
         >
+          <dxo-label [text]="LANG[lang].labels.birthDate"></dxo-label>
         </dxi-item>
 
         <!-- National ID -->
@@ -147,23 +169,24 @@ import { DxNumberBoxModule } from 'devextreme-angular/ui/number-box';
           dataField="nationalId"
           [isRequired]="true"
           editorType="dxTextBox"
-          [editorOptions]="{ placeholder: 'National ID' }"
+          [editorOptions]="{ placeholder: LANG[lang].labels.nationalId }"
         >
+          <dxo-label [text]="LANG[lang].labels.nationalId"></dxo-label>
           <dxi-validation-rule
             type="required"
-            message="nationalId is required"
+            message="is required"
           ></dxi-validation-rule
         ></dxi-item>
       </dx-form>
       <div class="flex justify-end gap-2 mt-4">
         <dx-button
-          text="Cancel"
+          [text]="LANG[lang].labels.cancel"
           type="normal"
           stylingMode="outlined"
           (onClick)="cancel.emit()"
         ></dx-button>
         <dx-button
-          text="Save"
+          [text]="LANG[lang].labels.save"
           type="default"
           stylingMode="contained"
           [useSubmitBehavior]="true"
@@ -174,6 +197,17 @@ import { DxNumberBoxModule } from 'devextreme-angular/ui/number-box';
   styleUrls: ['./user-form.component.css'],
 })
 export class UserFormComponent {
+  LANG = LANG;
+  lang: LangType = 'en';
+
+  get direction() {
+    return this.LANG[this.lang].direction;
+  }
+
+  toggleLang() {
+    this.lang = this.lang === 'en' ? 'fa' : 'en';
+  }
+
   @ViewChild('devForm', { static: false }) devForm!: DxFormComponent;
   @Input() editData: User | null = null;
   @Output() save = new EventEmitter<User>();
@@ -200,6 +234,7 @@ export class UserFormComponent {
     };
     reader.readAsDataURL(file);
   }
+
   submit() {
     const result = this.devForm.instance.validate();
 
